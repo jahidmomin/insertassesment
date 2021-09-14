@@ -1,0 +1,68 @@
+{
+    "assessmentName": "JS",
+    "skills":".net , .net advacned,ASP",
+    "description": "Asp.Net Quiz (contains webform, mvc, web API, etc.",
+    "isActive":1,
+    "questions": [
+        {
+            "questionName": "ASP.NET webform separates the HTML output from program logic using a feature named as",
+            "questionType": "MC",
+            "options": [
+                {
+                    "optionValue": "Exception"
+                },
+                {
+                    "optionValue": "Code-behind"
+                },
+                {
+                    "optionValue": "Code-front"
+                },
+                {
+                    "optionValue": "None of the above"
+                }
+            ],
+           "is_active": 1,
+            "correct_answer":"None of the above"
+        },
+        {
+            "questionName": "ASP Question 2 keyword of below is belongs to loops ?",
+            "questionType": "RB",
+            "options": [
+                {
+                    "optionValue": "Exception"
+                },
+                {
+                    "optionValue": "Code-behind"
+                },
+                {
+                    "optionValue": "Code-front"
+                },
+                {
+                    "optionValue": "None of the above"
+                }
+            ],
+           "is_active": 1,
+           "correct_answer":"Exception"
+        },
+        {
+            "questionName": "ASP Question 3 keyword of below is belongs to loops ?",
+            "questionType": "RB",
+            "options": [
+                {
+                    "optionValue": "AV"
+                },
+                {
+                    "optionValue": "FC-behind"
+                },
+                {
+                    "optionValue": "GV-front"
+                },
+                {
+                    "optionValue": "None of the above"
+                }
+            ],
+           "is_active": 1,
+           "correct_answer":"AV"
+        }
+      ]
+}
