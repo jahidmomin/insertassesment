@@ -5,13 +5,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Component;
 
+import com.backendlms.dto.AssesmentQuestionDTO;
+import com.backendlms.mapper.AssesmentRowMapper;
 import com.backendlms.model.Assesment;
 import com.backendlms.model.Option;
 import com.backendlms.model.Question;
@@ -27,9 +32,12 @@ public class AssessmentDAO implements AssessmentService {
 			+ "VALUES (?,?,?,?)";
 	private static final String QUERY2 = "INSERT INTO question(assessment_id,question_name,question_type,is_active) "
 			+ "VALUES (?,?,?,?)";
-	private static final String QUERY3 = "INSERT INTO option(question_id,options)"
+	private static final String QUERY3 = "INSERT INTO options(question_id,options)"
 			+ "VALUES (?,?)";
-
+	
+	private static final String QUERY4="SELECT * FROM assesment JOIN question ON assesment.assesment_id = question.assessment_id "
+			+ "JOIN options ON question.question_id = options.question_id";
+	
 	public long uploadAssessment(Assesment assesment) {
 		GeneratedKeyHolder holder = new GeneratedKeyHolder();
 		jdbcTemplate.update(new PreparedStatementCreator() {
@@ -83,4 +91,27 @@ public class AssessmentDAO implements AssessmentService {
 		return assesmentId;
 	}
 
+	@Override
+	public List<AssesmentQuestionDTO> getAllAssesment() {
+		String query="SELECT asm.assesment_id,qut.question_id,asm.assessment_name,asm.skills,asm.description,asm.created_on,asm.is_active,qut.question_name,qut.question_type , qut.assessment_id FROM smartgig.assesment asm, smartgig.question qut where asm.assesment_id = qut.assessment_id;";
+		
+		RowMapper<AssesmentQuestionDTO> rowMapper=new AssesmentRowMapper();
+		List<AssesmentQuestionDTO> assesment=jdbcTemplate.query(query,rowMapper);
+		return assesment;
+	}
+
+	@Override
+	public List<AssesmentQuestionDTO> getAssesment(int id) {
+		String query="SELECT asm.assesment_id,qut.question_id ,asm.assessment_name,asm.skills,asm.description,asm.created_on,asm.is_active,qut.question_name , qut.question_type  \r\n"
+				+ "FROM smartgig.assesment asm, smartgig.question qut\r\n"
+				+ "where asm.assesment_id = qut.assessment_id \r\n"
+				+ "and asm.assesment_id= ?;";
+		
+		RowMapper<AssesmentQuestionDTO> rowMapper=new AssesmentRowMapper();
+		List<AssesmentQuestionDTO> assesment=jdbcTemplate.query(query,rowMapper,id);
+//		for (AssesmentQuestionDTO assesmentQuestionDTO : assesment) {
+//			System.out.println(assesmentQuestionDTO.);
+//		}
+		return assesment;
+	}
 }
