@@ -7,15 +7,6 @@ public class AssesmentQuestionDTO {
 	private int questionId;
 	private int qassesmentId;
 	private String assessment_name;
-
-	public int getQassesmentId() {
-		return qassesmentId;
-	}
-
-	public void setQassesmentId(int qassesmentId) {
-		this.qassesmentId = qassesmentId;
-	}
-
 	private String skills;
 	private String description;
 	private Date created_on;
@@ -111,6 +102,14 @@ public class AssesmentQuestionDTO {
 	public AssesmentQuestionDTO() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public int getQassesmentId() {
+		return qassesmentId;
+	}
+
+	public void setQassesmentId(int qassesmentId) {
+		this.qassesmentId = qassesmentId;
 	}
 
 	@Override

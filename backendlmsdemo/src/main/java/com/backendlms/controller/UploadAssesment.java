@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.backendlms.dto.AssesmentQuestionDTO;
 import com.backendlms.model.Assesment;
 import com.backendlms.model.Question;
-import com.backendlms.service.AssessmentService;
+import com.backendlms.service.IAssessmentService;
 
 @RestController
 public class UploadAssesment {
 
 	@Autowired
-	private AssessmentService assessmentService;
+	private IAssessmentService assessmentService;
 
 	@PostMapping("/uploadassessment")
 	public long uploadAssessment(@RequestBody Assesment assesment) {
@@ -32,49 +32,79 @@ public class UploadAssesment {
 	@GetMapping("/assesments")
 	public List<Assesment> getAllAssesment() {
 		List<Assesment> assesments = new ArrayList<>();
-		List<Question> questions = new ArrayList<>();
+//		List<Question> questions = new ArrayList<>();
 		List<AssesmentQuestionDTO> assesmentsdto = assessmentService.getAllAssesment();
 
-		assesmentsdto.forEach(record -> {
-			
-				Assesment assesment = new Assesment();
-				assesment.setAssesmentId(record.getAssessmenId());
-				assesment.setAssessmentName(record.getAssessment_name());
-				assesment.setDescription(record.getDescription());
-				assesment.setSkills(record.getSkills());
-				assesment.setCreatedOn(record.getCreated_on());
-
-			if (assesment.getAssesmentId() == record.getQassesmentId()) {
-				Question question = new Question();
-				System.out.println(record.getQassesmentId() + " " + record.getAssessmenId());
-
-				question.setQuestionId(record.getQuestionId());
-				question.setAssessmentId(record.getAssessmenId());
-				question.setQuestionName(record.getQuestion_name());
-				question.setQuestionType(record.getQuestion_type());
-				questions.add(question);
-
-				assesment.setQuestions(questions);
-				assesments.add(assesment);
-			}
-		});
-
-		return assesments;
-	}
-
-	@GetMapping("/assesment/{id}")
-	public Assesment getAssesment(@PathVariable("id") int id) {
-		List<AssesmentQuestionDTO> assesmentQuestionDTOs = assessmentService.getAssesment(id);
-
+//		assesmentsdto.forEach(record -> {
+//		
+//				if(record.getAssessmenId()==record.getQassesmentId()) {
+//					Assesment assesment = new Assesment();
+//					assesment.setAssesmentId(record.getAssessmenId());
+//					assesment.setAssessmentName(record.getAssessment_name());
+//					assesment.setDescription(record.getDescription());
+//					assesment.setSkills(record.getSkills());
+//					assesment.setCreatedOn(record.getCreated_on());
+//
+//
+//					Question question = new Question();
+////					System.out.println(record.getQassesmentId() + " " + record.getAssessmenId());
+//
+//					question.setQuestionId(record.getQuestionId());
+//					question.setAssessmentId(record.getAssessmenId());
+//					question.setQuestionName(record.getQuestion_name());
+//					question.setQuestionType(record.getQuestion_type());
+//					questions.add(question);
+//
+//					assesment.setQuestions(questions);
+//					assesments.add(assesment);
+//				}
+//		});
+		
 		Assesment assesment = new Assesment();
 		List<Question> questions = new ArrayList<>();
-		assesmentQuestionDTOs.forEach(record -> {
+		
+		assesmentsdto.forEach(record -> {
+			
+			// object
 			assesment.setAssesmentId(record.getAssessmenId());
 			assesment.setAssessmentName(record.getAssessment_name());
 			assesment.setCreatedOn(record.getCreated_on());
 			assesment.setDescription(record.getDescription());
 			assesment.setSkills(record.getSkills());
 
+				//obejct
+			Question q = new Question();
+			q.setQuestionId(record.getQuestionId());
+			q.setAssessmentId(record.getAssessmenId());
+			q.setQuestionName(record.getQuestion_name());
+			q.setQuestionType(record.getQuestion_type());
+			questions.add(q);
+			
+		});
+		
+		assesment.setQuestions(questions);
+		assesments.add(assesment);
+		return assesments;
+	}
+
+	@GetMapping("/assesment/{id}")
+	public Assesment getAssesment(@PathVariable("id") int id) {
+		List<AssesmentQuestionDTO> assesmentQuestionDTOs = assessmentService.getAssesment(id);
+//		 3 object dto
+		
+		Assesment assesment = new Assesment();
+		List<Question> questions = new ArrayList<>();
+		
+		assesmentQuestionDTOs.forEach(record -> {
+			
+			// object
+			assesment.setAssesmentId(record.getAssessmenId());
+			assesment.setAssessmentName(record.getAssessment_name());
+			assesment.setCreatedOn(record.getCreated_on());
+			assesment.setDescription(record.getDescription());
+			assesment.setSkills(record.getSkills());
+
+				//obejct
 			Question q = new Question();
 			q.setQuestionId(record.getQuestionId());
 			q.setAssessmentId(record.getAssessmenId());
@@ -83,8 +113,10 @@ public class UploadAssesment {
 			questions.add(q);
 
 		});
+		
 		assesment.setQuestions(questions);
 		System.out.println(assesment);
 		return assesment;
 	}
 }
+ 

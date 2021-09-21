@@ -24,7 +24,7 @@ public class AssesmentRowMapper implements RowMapper<AssesmentQuestionDTO>{
 		assesment.setQuestion_name(rs.getString(8));
 		assesment.setQuestion_type(rs.getString(9));
 		assesment.setQassesmentId(rs.getInt(10));
-		
+		System.out.println("Mapping ");
 		return assesment;
 	}
 
