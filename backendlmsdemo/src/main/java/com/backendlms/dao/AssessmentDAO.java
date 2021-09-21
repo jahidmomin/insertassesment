@@ -20,10 +20,10 @@ import com.backendlms.mapper.AssesmentRowMapper;
 import com.backendlms.model.Assesment;
 import com.backendlms.model.Option;
 import com.backendlms.model.Question;
-import com.backendlms.service.IAssessmentService;
+import com.backendlms.service.AssessmentService;
 
 @Component
-public class AssessmentDAO{
+public class AssessmentDAO implements AssessmentService {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -91,21 +91,18 @@ public class AssessmentDAO{
 		return assesmentId;
 	}
 
+	@Override
 	public List<AssesmentQuestionDTO> getAllAssesment() {
-		String query="SELECT asm.assesment_id,qut.question_id,asm.assessment_name,asm.skills,asm.description,asm.created_on,asm.is_active,qut.question_name,qut.question_type , qut.assessment_id FROM smartgig.assesment asm, smartgig.question qut where asm.assesment_id = qut.assessment_id";
+		String query="SELECT asm.assesment_id,qut.question_id,asm.assessment_name,asm.skills,asm.description,asm.created_on,asm.is_active,qut.question_name,qut.question_type , qut.assessment_id FROM smartgig.assesment asm, smartgig.question qut where asm.assesment_id = qut.assessment_id;";
 		
 		RowMapper<AssesmentQuestionDTO> rowMapper=new AssesmentRowMapper();
 		List<AssesmentQuestionDTO> assesment=jdbcTemplate.query(query,rowMapper);
-	
-		assesment.forEach(record->{
-			System.out.println(record);
-		});
-		
 		return assesment;
 	}
 
+	@Override
 	public List<AssesmentQuestionDTO> getAssesment(int id) {
-		String query="SELECT asm.assesment_id,qut.question_id ,asm.assessment_name,asm.skills,asm.description,asm.created_on,asm.is_active,qut.question_name , qut.question_type ,qut.assessment_id   \r\n"
+		String query="SELECT asm.assesment_id,qut.question_id ,asm.assessment_name,asm.skills,asm.description,asm.created_on,asm.is_active,qut.question_name , qut.question_type  \r\n"
 				+ "FROM smartgig.assesment asm, smartgig.question qut\r\n"
 				+ "where asm.assesment_id = qut.assessment_id \r\n"
 				+ "and asm.assesment_id= ?;";
