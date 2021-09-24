@@ -37,14 +37,39 @@ public class UploadAssesment {
 
 		assesmentsdto.forEach(record -> {
 			
+//				Assesment assesment = new Assesment();
+//				assesment.setAssesmentId(record.getAssessmenId());
+//				assesment.setAssessmentName(record.getAssessment_name());
+//				assesment.setDescription(record.getDescription());
+//				assesment.setSkills(record.getSkills());
+//				assesment.setCreatedOn(record.getCreated_on());
+
+//			if (assesment.getAssesmentId() == record.getQassesmentId()) {
+//				Question question = new Question();
+//				System.out.println(record.getQassesmentId() + " " + record.getAssessmenId());
+
+//				question.setQuestionId(record.getQuestionId());
+//				question.setAssessmentId(record.getAssessmenId());
+//				question.setQuestionName(record.getQuestion_name());
+//				question.setQuestionType(record.getQuestion_type());
+//				questions.add(question);
+
+//				assesment.setQuestions(questions);
+//				assesments.add(assesment);
+//			}
+
+			boolean present = assesments.stream().anyMatch(a -> a.getAssesmentId() == record.getAssessmenId());
+			if (!present) {
 				Assesment assesment = new Assesment();
 				assesment.setAssesmentId(record.getAssessmenId());
 				assesment.setAssessmentName(record.getAssessment_name());
 				assesment.setDescription(record.getDescription());
 				assesment.setSkills(record.getSkills());
 				assesment.setCreatedOn(record.getCreated_on());
-
-			if (assesment.getAssesmentId() == record.getQassesmentId()) {
+				assesments.add(assesment);
+			} else {
+				List<Question> questionsList = assesments.stream()
+						.filter(a -> a.getAssesmentId() == record.getAssessmenId()).findAny().get().getQuestions();
 				Question question = new Question();
 				System.out.println(record.getQassesmentId() + " " + record.getAssessmenId());
 
@@ -52,10 +77,12 @@ public class UploadAssesment {
 				question.setAssessmentId(record.getAssessmenId());
 				question.setQuestionName(record.getQuestion_name());
 				question.setQuestionType(record.getQuestion_type());
-				questions.add(question);
+				questionsList.add(question);
 
-				assesment.setQuestions(questions);
-				assesments.add(assesment);
+				assesments.stream().filter(a -> a.getAssesmentId() == record.getAssessmenId()).map(a -> {
+					a.setQuestions(questionsList);
+					return a;
+				});
 			}
 		});
 
