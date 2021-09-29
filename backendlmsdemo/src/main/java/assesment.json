@@ -1,0 +1,55 @@
+{
+    "name": ".Net QUIZ",
+    "skills": ".net , .net advacned,ASP",
+    "description": "Asp.Net Quiz (contains webform, mvc, web API, etc.",
+    "isActive": 1,
+    "validity_start_date":"21-09-2021",
+    "validity_end_date":"23-09-2021",
+    "time_duration":"30",
+    "no_of_questions":"30",
+    "max_attempts_allowed":"5",
+    "createdOn": "2021-09-14",
+    "created_by":"admin",
+    "assesment_type":{
+		"assesment_type":"Easy",
+		"assesment_level":"beginner"
+	},
+    "questions": [
+        {
+            "questionName": "ASP.NET webform separates the HTML output from program logic using a feature named as",
+            "questionType": "MC",
+            "value_1":"",
+            "value_2":"",
+            "value_3":"",
+            "value_4":"",
+            "value_5":"",
+            "question_score":"",
+            "correct_answer": null,
+            "severity_level":"easy"
+        },
+           {
+            "questionName": "JAVA webform separates the HTML output from program logic using a feature named as",
+            "questionType": "MC",
+            "value_1":"",
+            "value_2":"",
+            "value_3":"",
+            "value_4":"",
+            "value_5":"",
+            "question_score":"",
+            "correct_answer": null,
+            "severity_level":"hard"
+        },
+           {
+            "questionName": "PHP webform separates the HTML output from program logic using a feature named as",
+            "questionType": "MC",
+            "value_1":"",
+            "value_2":"",
+            "value_3":"",
+            "value_4":"",
+            "value_5":"",
+            "question_score":"",
+            "correct_answer": null,
+            "severity_level":"moderate"
+        }
+    ]
+}
